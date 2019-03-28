@@ -1,6 +1,7 @@
 package com.example.javadevnai;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "This is: " + devList[holder.getAdapterPosition()], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DevDetails.class);
+                context.startActivity(intent);
             }
         });
         holder.name.setText(devList[holder.getAdapterPosition()]);
