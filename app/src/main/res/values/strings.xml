@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Java Dev Nai</string>
-    <string name="dev_username">maxfury</string>
+    <string name="dev_name">@maxfurry</string>
+    <string-array name="dev_list">
+        <item>@maxfurry</item>
+        <item>@luckzman</item>
+        <item>@etlneg</item>
+        <item>@ibro</item>
+        <item>@peerless</item>
+        <item>@maxfurry</item>
+        <item>@luckzman</item>
+        <item>@etlneg</item>
+        <item>@ibro</item>
+        <item>@peerless</item>
+        <item>@macodinas</item>
+    </string-array>
+    <string name="title_activity_dev_detail">DevDetailActivity</string>
+    <string name="title_activity_dev_details">Profile</string>
+    <string name="star_andela">\u2605 Andela</string>
 </resources>
