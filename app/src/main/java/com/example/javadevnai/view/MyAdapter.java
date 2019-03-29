@@ -1,4 +1,4 @@
-package com.example.javadevnai;
+package com.example.javadevnai.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.example.javadevnai.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 

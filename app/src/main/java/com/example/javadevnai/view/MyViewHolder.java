@@ -1,9 +1,11 @@
-package com.example.javadevnai;
+package com.example.javadevnai.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.javadevnai.R;
 
 public class MyViewHolder extends RecyclerView.ViewHolder{
 

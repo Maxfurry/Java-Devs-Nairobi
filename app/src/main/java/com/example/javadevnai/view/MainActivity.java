@@ -1,4 +1,4 @@
-package com.example.javadevnai;
+package com.example.javadevnai.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.javadevnai.R;
 
 public class MainActivity extends AppCompatActivity {
 
