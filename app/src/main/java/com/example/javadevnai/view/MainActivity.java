@@ -7,13 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.javadevnai.R;
+import com.example.javadevnai.model.JavaGithubNai;
+import com.example.javadevnai.presenter.GithubPresenter;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements JavaGithubAllUserView {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+
+    GithubPresenter presenter;
 
     Context context = this;
 
@@ -31,5 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(context, getResources().getStringArray(R.array.dev_list), avatar);
         recyclerView.setAdapter(adapter);
+
+        presenter = new GithubPresenter(this);
+        presenter.getAllJavaUser();
+    }
+
+    @Override
+    public void displayAllJavaUsers(List<JavaGithubNai> javaGithubNaiUsers) {
+        Log.d("Users", String.valueOf(javaGithubNaiUsers));
     }
 }
