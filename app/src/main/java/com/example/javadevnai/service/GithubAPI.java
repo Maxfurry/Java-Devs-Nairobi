@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface GithubAPI {
-    @GET("/search/users?q=location:nairobi+language:java&page=1&per_page=6")
+    @GET("/search/users?q=location:nairobi+language:java&page=1&per_page=15")
     Call<JavaGithubResponse> getAllJavaUsers();
 
     @GET("/users/{username}")

@@ -1,25 +1,30 @@
-package com.example.javadevnai.view;
+package com.example.javadevnai.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.javadevnai.R;
+import com.example.javadevnai.model.JavaGithubNai;
+import com.example.javadevnai.view.DevDetails;
+import com.example.javadevnai.view.MyViewHolder;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+import java.util.List;
 
-    String[] devList;
-    Bitmap avatar;
+import com.squareup.picasso.Picasso;
+
+public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
+
     Context context;
 
-    public MyAdapter(Context context, String[] devList, Bitmap avatar) {
-        this.context = context;
+    List <JavaGithubNai> devList;
+
+    public GithubAdapter(Context context, List <JavaGithubNai> devList) {
         this.devList = devList;
-        this.avatar = avatar;
+        this.context = context;
     }
 
     @Override
@@ -31,7 +36,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.avatar.setImageBitmap(avatar);
+        JavaGithubNai javaDev = devList.get(position);
+
+        String imageUrl = javaDev.getAvatarUrl();
+
+        Picasso.get().load(imageUrl).into(holder.avatar);
+
         holder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,10 +49,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 context.startActivity(intent);
             }
         });
-        holder.name.setText(devList[holder.getAdapterPosition()]);
+
+        String username = javaDev.getUsername();
+        holder.name.setText(username);
     }
     @Override
     public int getItemCount() {
-        return devList.length;
+        return devList.size();
     }
 }
