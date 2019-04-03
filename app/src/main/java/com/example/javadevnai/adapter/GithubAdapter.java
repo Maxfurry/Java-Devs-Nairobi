@@ -1,4 +1,4 @@
-package com.example.javadevnai.view;
+package com.example.javadevnai.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.javadevnai.R;
+import com.example.javadevnai.view.DevDetails;
+import com.example.javadevnai.view.MyViewHolder;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     String[] devList;
     Bitmap avatar;
     Context context;
 
-    public MyAdapter(Context context, String[] devList, Bitmap avatar) {
+    public GithubAdapter(Context context, String[] devList, Bitmap avatar) {
         this.context = context;
         this.devList = devList;
         this.avatar = avatar;
