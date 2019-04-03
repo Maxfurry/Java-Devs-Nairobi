@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.javadevnai.R;
+import com.example.javadevnai.adapter.GithubAdapter;
 import com.example.javadevnai.model.JavaGithubNai;
 import com.example.javadevnai.presenter.GithubPresenter;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
 
         Bitmap avatar = BitmapFactory.decodeResource(getResources(), R.drawable.boy);
 
-        MyAdapter adapter = new MyAdapter(context, getResources().getStringArray(R.array.dev_list), avatar);
+        GithubAdapter adapter = new GithubAdapter(context, getResources().getStringArray(R.array.dev_list), avatar);
         recyclerView.setAdapter(adapter);
 
         presenter = new GithubPresenter(this);
