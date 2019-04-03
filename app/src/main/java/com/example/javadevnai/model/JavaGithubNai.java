@@ -9,8 +9,6 @@ public class JavaGithubNai {
     protected String avatarUrl;
     @SerializedName("name")
     protected String name;
-    @SerializedName("email")
-    protected String email;
     @SerializedName("login")
     protected String username;
     @SerializedName("followers")
@@ -34,10 +32,6 @@ public class JavaGithubNai {
 
     public String getName() {
         return this.name;
-    }
-
-    public String getEmail() {
-        return this.email;
     }
 
     public String getUsername() {
