@@ -1,13 +1,10 @@
 package com.example.javadevnai.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.example.javadevnai.R;
 import com.example.javadevnai.adapter.GithubAdapter;
@@ -35,17 +32,13 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Bitmap avatar = BitmapFactory.decodeResource(getResources(), R.drawable.boy);
-
-        GithubAdapter adapter = new GithubAdapter(context, getResources().getStringArray(R.array.dev_list), avatar);
-        recyclerView.setAdapter(adapter);
-
         presenter = new GithubPresenter(this);
         presenter.getAllJavaUser();
     }
 
     @Override
     public void displayAllJavaUsers(List<JavaGithubNai> javaGithubNaiUsers) {
-        Log.d("Users", String.valueOf(javaGithubNaiUsers));
+        GithubAdapter adapter = new GithubAdapter(context, javaGithubNaiUsers);
+        recyclerView.setAdapter(adapter);
     }
 }
