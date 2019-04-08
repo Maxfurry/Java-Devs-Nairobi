@@ -1,6 +1,7 @@
 package com.example.javadevnai.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,9 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
     TextView repo;
     TextView organisation;
 
+    String githubUsername;
+    String githubURL;
+
     GithubPresenter presenter;
 
     @Override
@@ -51,9 +55,8 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
         organisation = this.findViewById(R.id.organisation);
 
         presenter = new GithubPresenter(this);
-        String username = getIntent().getExtras().getString("username");
-        presenter.getJavaUser(username);
-        Log.d("Name", username);
+        githubUsername = getIntent().getExtras().getString("username");
+        presenter.getJavaUser(githubUsername);
     }
 
     @Override
@@ -66,7 +69,15 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.share:
-                Toast.makeText(context, "You clicked the share button", Toast.LENGTH_SHORT).show();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = String.format("Check out this awesome developer @%s, %s.", githubUsername, githubURL);
+                String shareSubject = "Java Github Developer Nairobi";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                Toast.makeText(context, shareBodyText, Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -82,7 +93,9 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
         followers.setText(javaGithubNaiUser.getFollowers()+"");
         followings.setText(javaGithubNaiUser.getFollowing()+"");
         repo.setText(javaGithubNaiUser.getRepo()+"");
-        githubUrl.setText(javaGithubNaiUser.getHtmlUrl());
+
+        githubURL = javaGithubNaiUser.getHtmlUrl();
+        githubUrl.setText(githubURL);
 
         String info = javaGithubNaiUser.getBio();
         String company = javaGithubNaiUser.getCompany();
