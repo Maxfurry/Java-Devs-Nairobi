@@ -33,4 +33,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
     implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     implementation "com.android.support:exifinterface:$rootProject.appCompatVersion"
+    implementation "com.android.support:support-v4:$rootProject.appCompatVersion"
 }
