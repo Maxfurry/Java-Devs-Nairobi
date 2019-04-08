@@ -11,6 +11,6 @@ public interface GithubAPI {
     @GET("/search/users?q=location:nairobi+language:java&page=1&per_page=16")
     Call<JavaGithubResponse> getAllJavaUsers();
 
-    @GET("/users/{username}?access_token=e1edc21b32f0d212716f5c06db14b1d77f44eb6e")
+    @GET("/users/{username}?access_token=93c26b99324d2f3dafe7e1bacd5ff02f177dfae9")
     Call<JavaGithubNai> getSpecificJavaUser(@Path("username") String username);
 }

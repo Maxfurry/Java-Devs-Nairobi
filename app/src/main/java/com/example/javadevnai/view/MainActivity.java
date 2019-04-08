@@ -22,7 +22,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements JavaGithubAllUserView {
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
 
     GithubPresenter presenter;
 
@@ -37,10 +36,11 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView = findViewById(R.id.my_recycler_view);
 
         recyclerView.setHasFixedSize(true);
 
+        RecyclerView.LayoutManager layoutManager;
         layoutManager = new GridLayoutManager(context, getResources().getInteger(R.integer.grid_count));
         recyclerView.setLayoutManager(layoutManager);
 
@@ -69,11 +69,9 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.refresh_page:
-                swipeRefreshLayout.setRefreshing(true);
-                presenter.getAllJavaUser();
-                break;
+        if (item.getItemId() == R.id.refresh_page) {
+            swipeRefreshLayout.setRefreshing(true);
+            presenter.getAllJavaUser();
         }
         return super.onOptionsItemSelected(item);
 

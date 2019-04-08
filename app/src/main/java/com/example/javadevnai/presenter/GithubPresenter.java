@@ -1,5 +1,7 @@
 package com.example.javadevnai.presenter;
 
+import android.util.Log;
+
 import com.example.javadevnai.model.JavaGithubNai;
 import com.example.javadevnai.model.JavaGithubResponse;
 import com.example.javadevnai.service.GithubService;
@@ -14,8 +16,8 @@ import retrofit2.Response;
 
 public class GithubPresenter {
     private GithubService githubService;
-    private JavaGithubAllUserView javaGithubAllUserView;
-    private JavaGithubUserView javaGithubUserView;
+    JavaGithubAllUserView javaGithubAllUserView;
+    JavaGithubUserView javaGithubUserView;
 
     public GithubPresenter(JavaGithubUserView view) {
         this.javaGithubUserView = view;
@@ -35,49 +37,49 @@ public class GithubPresenter {
 
     public void getJavaUser(String username) {
         githubService
-            .getAPI()
-            .getSpecificJavaUser(username)
-            .enqueue(new Callback<JavaGithubNai>() {
-                @Override
-                public void onResponse(Call<JavaGithubNai> call, Response<JavaGithubNai> response) {
-                    JavaGithubNai data = response.body();
-                    javaGithubUserView.displayJavaUser(data);
-                }
-
-                @Override
-                public void onFailure(Call<JavaGithubNai> call, Throwable t) {
-                    try {
-                        throw new InterruptedException("Something went wrong!");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                .getAPI()
+                .getSpecificJavaUser(username)
+                .enqueue(new Callback<JavaGithubNai>() {
+                    @Override
+                    public void onResponse(Call<JavaGithubNai> call, Response<JavaGithubNai> response) {
+                        JavaGithubNai data = response.body();
+                        javaGithubUserView.displayJavaUser(data);
                     }
-                }
-            });
+
+                    @Override
+                    public void onFailure(Call<JavaGithubNai> call, Throwable t) {
+                        try {
+                            throw new InterruptedException("Something went wrong!");
+                        } catch (InterruptedException e) {
+                            Log.e("API_Call", e.toString());
+                        }
+                    }
+                });
     }
 
     public void getAllJavaUser() {
         githubService
-            .getAPI()
-            .getAllJavaUsers()
-            .enqueue(new Callback<JavaGithubResponse>() {
-                @Override
-                public void onResponse(Call<JavaGithubResponse> call, Response<JavaGithubResponse> response) {
-                    JavaGithubResponse data = response.body();
+                .getAPI()
+                .getAllJavaUsers()
+                .enqueue(new Callback<JavaGithubResponse>() {
+                    @Override
+                    public void onResponse(Call<JavaGithubResponse> call, Response<JavaGithubResponse> response) {
+                        JavaGithubResponse data = response.body();
 
-                    if (data != null && data.getGithubUserDetail() != null) {
-                        List<JavaGithubNai> javaGithubUser = data.getGithubUserDetail();
-                        javaGithubAllUserView.displayAllJavaUsers(javaGithubUser);
+                        if (data != null && data.getGithubUserDetail() != null) {
+                            List<JavaGithubNai> javaGithubUser = data.getGithubUserDetail();
+                            javaGithubAllUserView.displayAllJavaUsers(javaGithubUser);
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<JavaGithubResponse> call, Throwable t) {
-                    try {
-                        throw new InterruptedException("Something went wrong!");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    @Override
+                    public void onFailure(Call<JavaGithubResponse> call, Throwable t) {
+                        try {
+                            throw new InterruptedException("Something went wrong!");
+                        } catch (InterruptedException e) {
+                            Log.e("API_Call", e.toString());
+                        }
                     }
-                }
-            });
+                });
     }
 }
