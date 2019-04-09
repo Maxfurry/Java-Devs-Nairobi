@@ -20,6 +20,7 @@ public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     Context context;
 
+    MyViewHolder viewHolder;
     List <JavaGithubNai> devList;
 
     public GithubAdapter(Context context, List <JavaGithubNai> devList) {
@@ -30,7 +31,7 @@ public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-        MyViewHolder viewHolder = new MyViewHolder(v);
+        viewHolder = new MyViewHolder(v);
         return viewHolder;
     }
 

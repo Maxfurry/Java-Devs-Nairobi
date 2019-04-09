@@ -33,7 +33,7 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
     TextView organisation;
 
     String githubUsername;
-    String githubURL;
+    String JavaGithubURL;
 
     GithubPresenter presenter;
 
@@ -78,22 +78,19 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
         return super.onCreateOptionsMenu(menu);
     }
 
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.share:
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBodyText = String.format("Check out this awesome developer @%s, %s.", githubUsername, githubURL);
-                String shareSubject = "Java Github Developer Nairobi";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+        if (item.getItemId() == R.id.share) {
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBodyText = String.format("Check out this awesome developer @%s, %s.", githubUsername, JavaGithubURL);
+            String shareSubject = "Java Github Developer Nairobi";
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
 
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                break;
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override
@@ -108,8 +105,8 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
         followings.setText(javaGithubNaiUser.getFollowing()+"");
         repo.setText(javaGithubNaiUser.getRepo()+"");
 
-        githubURL = javaGithubNaiUser.getHtmlUrl();
-        githubUrl.setText(githubURL);
+        JavaGithubURL = javaGithubNaiUser.getHtmlUrl();
+        githubUrl.setText(JavaGithubURL);
 
         String info = javaGithubNaiUser.getBio();
         String company = javaGithubNaiUser.getCompany();

@@ -16,7 +16,7 @@ public class JavaGithubNai {
     @SerializedName("following")
     protected int following;
     @SerializedName("public_repos")
-    protected int public_repos;
+    protected int publicPepos;
     @SerializedName("bio")
     protected String bio;
     @SerializedName("company")
@@ -47,7 +47,7 @@ public class JavaGithubNai {
     }
 
     public int getRepo() {
-        return this.public_repos;
+        return this.publicPepos;
     }
 
     public String getBio() {

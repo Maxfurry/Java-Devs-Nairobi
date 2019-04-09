@@ -15,8 +15,9 @@ public class JavaGithubResponse {
     }
 
     public static JavaGithubResponse parseJSON(String response) {
+        JavaGithubResponse getGithubUserDetail;
         Gson gson = new GsonBuilder().create();
-        JavaGithubResponse getGithubUserDetail = gson.fromJson(response, JavaGithubResponse.class);
+        getGithubUserDetail = gson.fromJson(response, JavaGithubResponse.class);
         return getGithubUserDetail;
     }
 }
