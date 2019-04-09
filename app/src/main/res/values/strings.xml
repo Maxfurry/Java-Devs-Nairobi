@@ -17,4 +17,6 @@
     <string name="title_activity_dev_detail">DevDetailActivity</string>
     <string name="title_activity_dev_details">Profile</string>
     <string name="star_andela">\u2605 Andela</string>
+    <string name="loading">Loading...</string>
+    <integer name="grid_count">2</integer>
 </resources>

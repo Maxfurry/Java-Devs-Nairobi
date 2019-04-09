@@ -29,5 +29,7 @@
         android:padding="16dp"
         android:text="Click to open shearing option" />
 
-    <include layout="@layout/content_dev_details" android:id="@+id/id" />
+    <include layout="@layout/spinner" />
+    <include layout="@layout/content_dev_details" />
+
 </android.support.design.widget.CoordinatorLayout>
