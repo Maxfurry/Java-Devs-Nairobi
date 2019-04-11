@@ -1,4 +1,4 @@
-package com.example.javadevnai;
+package com.andela.javadevnai;
 
 import org.junit.Test;
 

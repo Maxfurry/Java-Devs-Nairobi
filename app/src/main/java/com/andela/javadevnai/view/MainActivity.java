@@ -1,4 +1,4 @@
-package com.example.javadevnai.view;
+package com.andela.javadevnai.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,10 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.example.javadevnai.R;
-import com.example.javadevnai.adapter.GithubAdapter;
-import com.example.javadevnai.model.JavaGithubNai;
-import com.example.javadevnai.presenter.GithubPresenter;
+import com.andela.javadevnai.R;
+import com.andela.javadevnai.adapter.GithubAdapter;
+import com.andela.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.presenter.GithubPresenter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

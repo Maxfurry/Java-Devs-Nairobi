@@ -1,12 +1,12 @@
-package com.example.javadevnai.presenter;
+package com.andela.javadevnai.presenter;
 
 import android.util.Log;
 
-import com.example.javadevnai.model.JavaGithubNai;
-import com.example.javadevnai.model.JavaGithubResponse;
-import com.example.javadevnai.service.GithubService;
-import com.example.javadevnai.view.JavaGithubAllUserView;
-import com.example.javadevnai.view.JavaGithubUserView;
+import com.andela.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.model.JavaGithubResponse;
+import com.andela.javadevnai.service.GithubService;
+import com.andela.javadevnai.view.JavaGithubAllUserView;
+import com.andela.javadevnai.view.JavaGithubUserView;
 
 import java.util.List;
 

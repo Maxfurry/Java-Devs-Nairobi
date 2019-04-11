@@ -1,4 +1,4 @@
-package com.example.javadevnai;
+package com.andela.javadevnai;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
