@@ -1,7 +1,7 @@
 package com.example.javadevnai.view;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +16,10 @@ import android.widget.TextView;
 import com.example.javadevnai.R;
 import com.example.javadevnai.model.JavaGithubNai;
 import com.example.javadevnai.presenter.GithubPresenter;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class DevDetails extends AppCompatActivity implements JavaGithubUserView {
-
-    Context context = this;
-
     ImageView avatar;
     TextView username;
     TextView fullname;
@@ -41,6 +39,8 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
 
     ConstraintLayout loader;
     ConstraintLayout dev_detail;
+
+    JavaGithubNai mGithubUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,8 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
 
     @Override
     public void displayJavaUser(JavaGithubNai javaGithubNaiUser) {
+        mGithubUser = javaGithubNaiUser;
+
         Picasso.get().load(javaGithubNaiUser.getAvatarUrl()).into(avatar);
         username.setText(javaGithubNaiUser.getUsername());
 
@@ -125,5 +127,27 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
 
         loader.setVisibility(View.GONE);
         dev_detail.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String serializedGithubUser = new Gson().toJson(mGithubUser);
+        SharedPreferences githubUser = getSharedPreferences("JavaGithubUser", MODE_PRIVATE);
+        SharedPreferences.Editor editor = githubUser.edit();
+        editor.putString("javaGithubUser", serializedGithubUser);
+        editor.apply();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences githubUser = getSharedPreferences("JavaGithubUser", MODE_PRIVATE);
+        String serializedGithubUser = githubUser.getString("javaGithubUser", null);
+        JavaGithubNai mGithubUser = new Gson().fromJson(serializedGithubUser, JavaGithubNai.class);
+        if (mGithubUser != null) {
+            displayJavaUser(mGithubUser);
+        }
     }
 }

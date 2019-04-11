@@ -1,22 +1,10 @@
 <resources>
     <string name="app_name">Java Dev Nai</string>
     <string name="dev_name">@maxfurry</string>
-    <string-array name="dev_list">
-        <item>@maxfurry</item>
-        <item>@luckzman</item>
-        <item>@etlneg</item>
-        <item>@ibro</item>
-        <item>@peerless</item>
-        <item>@maxfurry</item>
-        <item>@luckzman</item>
-        <item>@etlneg</item>
-        <item>@ibro</item>
-        <item>@peerless</item>
-        <item>@macodinas</item>
-    </string-array>
     <string name="title_activity_dev_detail">DevDetailActivity</string>
     <string name="title_activity_dev_details">Profile</string>
     <string name="star_andela">\u2605 Andela</string>
     <string name="loading">Loading...</string>
-    <integer name="grid_count">2</integer>
+    <integer name="grid_count_portrait">2</integer>
+    <integer name="grid_count_landscape">3</integer>
 </resources>
