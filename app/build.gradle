@@ -7,7 +7,7 @@ apply from: "$project.rootDir/tools/pmd.gradle"
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.javadevnai"
+        applicationId "com.andela.javadevnai"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -18,6 +18,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "GITHUB_CLIENT_ID", "\"" + System.getenv("GITHUB_CLIENT_ID")+ "\""
+            buildConfigField 'String', "GITHUB_CLIENT_SECRET", "\"" + System.getenv("GITHUB_CLIENT_SECRET")+ "\""
+        }
+
+        debug {
+            buildConfigField 'String', "GITHUB_CLIENT_ID", "\"" + System.getenv("GITHUB_CLIENT_ID")+ "\""
+            buildConfigField 'String', "GITHUB_CLIENT_SECRET", "\"" + System.getenv("GITHUB_CLIENT_SECRET")+ "\""
+            testCoverageEnabled = true
         }
     }
 }
@@ -38,4 +46,9 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     implementation "com.android.support:exifinterface:$rootProject.appCompatVersion"
     implementation "com.android.support:support-v4:$rootProject.appCompatVersion"
+
+    androidTestImplementation "com.android.support.test:rules:$rootProject.runnerVersion"
+    androidTestImplementation "com.android.support:support-annotations:$rootProject.appCompatVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoCoreVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.espressoCoreVersion"
 }

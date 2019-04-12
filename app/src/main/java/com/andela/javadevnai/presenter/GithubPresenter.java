@@ -2,6 +2,7 @@ package com.andela.javadevnai.presenter;
 
 import android.util.Log;
 
+import com.andela.javadevnai.BuildConfig;
 import com.andela.javadevnai.model.JavaGithubNai;
 import com.andela.javadevnai.model.JavaGithubResponse;
 import com.andela.javadevnai.service.GithubService;
@@ -36,9 +37,11 @@ public class GithubPresenter {
     }
 
     public void getJavaUser(String username) {
+        String GITHUB_CLIENT_ID = BuildConfig.GITHUB_CLIENT_ID;
+        String GITHUB_CLIENT_SECRET = BuildConfig.GITHUB_CLIENT_SECRET;
         githubService
                 .getAPI()
-                .getSpecificJavaUser(username)
+                .getSpecificJavaUser(username, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
                 .enqueue(new Callback<JavaGithubNai>() {
                     @Override
                     public void onResponse(Call<JavaGithubNai> call, Response<JavaGithubNai> response) {

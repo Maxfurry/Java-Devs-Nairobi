@@ -6,11 +6,14 @@ import com.andela.javadevnai.model.JavaGithubResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface GithubAPI {
     @GET("/search/users?q=location:nairobi+language:java&page=1&per_page=18")
     Call<JavaGithubResponse> getAllJavaUsers();
 
-    @GET("/users/{username}?access_token=d5814d4993b0d7edfb1ecb19dcfc72c1c45555f5")
-    Call<JavaGithubNai> getSpecificJavaUser(@Path("username") String username);
+    @GET("/users/{username}")
+    Call<JavaGithubNai> getSpecificJavaUser(@Path("username") String username,
+                                            @Query("client_id") String CLIENT_ID,
+                                            @Query("client_secret") String CLIENT_SECRET);
 }
