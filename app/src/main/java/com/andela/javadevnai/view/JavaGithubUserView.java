@@ -1,6 +1,6 @@
-package com.example.javadevnai.view;
+package com.andela.javadevnai.view;
 
-import com.example.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.model.JavaGithubNai;
 
 public interface JavaGithubUserView {
     void displayJavaUser(JavaGithubNai javaGithubNaiUser);

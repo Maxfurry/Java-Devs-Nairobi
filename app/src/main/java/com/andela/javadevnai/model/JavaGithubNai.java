@@ -1,4 +1,4 @@
-package com.example.javadevnai.model;
+package com.andela.javadevnai.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

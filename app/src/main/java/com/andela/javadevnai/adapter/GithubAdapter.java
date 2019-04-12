@@ -1,4 +1,4 @@
-package com.example.javadevnai.adapter;
+package com.andela.javadevnai.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.javadevnai.R;
-import com.example.javadevnai.model.JavaGithubNai;
-import com.example.javadevnai.view.DevDetails;
-import com.example.javadevnai.view.MyViewHolder;
+import com.andela.javadevnai.R;
+import com.andela.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.view.DevDetails;
+import com.andela.javadevnai.view.MyViewHolder;
 
 import java.util.List;
 

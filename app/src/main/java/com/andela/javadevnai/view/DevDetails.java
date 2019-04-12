@@ -1,4 +1,4 @@
-package com.example.javadevnai.view;
+package com.andela.javadevnai.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.javadevnai.R;
-import com.example.javadevnai.model.JavaGithubNai;
-import com.example.javadevnai.presenter.GithubPresenter;
+import com.andela.javadevnai.R;
+import com.andela.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.presenter.GithubPresenter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 

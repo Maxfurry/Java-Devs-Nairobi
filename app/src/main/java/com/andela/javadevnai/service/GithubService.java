@@ -1,4 +1,4 @@
-package com.example.javadevnai.service;
+package com.andela.javadevnai.service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

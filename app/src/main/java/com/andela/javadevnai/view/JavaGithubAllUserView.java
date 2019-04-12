@@ -1,6 +1,6 @@
-package com.example.javadevnai.view;
+package com.andela.javadevnai.view;
 
-import com.example.javadevnai.model.JavaGithubNai;
+import com.andela.javadevnai.model.JavaGithubNai;
 
 import java.util.List;
 

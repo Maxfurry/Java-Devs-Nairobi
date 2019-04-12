@@ -1,0 +1,62 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  before_all do
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  end
+
+  gradle(
+    task: "assemble",
+    build_type: "Release",
+    print_command: false,
+    properties: {
+        "android.injected.signing.store.password" => "store_password",
+        "android.injected.signing.key.alias" => "key_alias",
+        "android.injected.signing.key.password" => "key_password",
+    }
+  )
+
+  desc "Deploy a new version to Slack Channel"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    slack_build()
+  end
+
+  desc "Upload new version to Slack Channel"
+  private_lane :slack_build do |options|
+    file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    token = ENV["SLACK_TOKEN"]
+    channel = "converge-codelab-qa"
+    sh "echo Uploading " + file_name + " to Slack"
+    sh "curl https://slack.com/api/files.upload -F token=\""+ token + "\" -F channels=\"#" + channel + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+  end
+
+  after_all do |lane|
+    slack(
+      message: "Successfully deployed new app"
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
+    )
+  end
+end
