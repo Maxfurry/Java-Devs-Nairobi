@@ -1,8 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
+apply from: rootProject.file('app/jacoco.gradle')
+
+jacoco {
+    toolVersion =  "0.8.1"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
 
 android {
     compileSdkVersion 28
@@ -26,6 +37,16 @@ android {
             buildConfigField 'String', "GITHUB_CLIENT_ID", "\"" + System.getenv("GITHUB_CLIENT_ID")+ "\""
             buildConfigField 'String', "GITHUB_CLIENT_SECRET", "\"" + System.getenv("GITHUB_CLIENT_SECRET")+ "\""
             testCoverageEnabled = true
+        }
+    }
+
+    testOptions {
+        animationsDisabled true
+
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
         }
     }
 }
