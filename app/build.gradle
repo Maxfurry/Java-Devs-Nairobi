@@ -1,8 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
+apply from: "$project.rootDir/app/jacoco.gradle"
+
+jacoco {
+    toolVersion =  "0.8.1"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
 
 android {
     compileSdkVersion 28
@@ -28,6 +39,16 @@ android {
             testCoverageEnabled = true
         }
     }
+
+    testOptions {
+        animationsDisabled true
+
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
 }
 
 dependencies {
@@ -51,4 +72,8 @@ dependencies {
     androidTestImplementation "com.android.support:support-annotations:$rootProject.appCompatVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoCoreVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.espressoCoreVersion"
+
+    testImplementation "org.mockito:mockito-all:$rootProject.mockitoVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$rootProject.powerMockVersion"
+    testImplementation "org.powermock:powermock-api-mockito:$rootProject.powerMockVersion"
 }
