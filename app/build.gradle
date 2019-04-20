@@ -5,6 +5,9 @@ apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
 apply from: "$project.rootDir/app/jacoco.gradle"
+apply from: "$project.rootDir/tools/git-hooks.gradle"
+
+check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
 jacoco {
     toolVersion =  "0.8.1"

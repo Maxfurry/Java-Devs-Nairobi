@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
 
     RecyclerView.LayoutManager layoutManager;
 
-    ArrayList<JavaGithubNai> savedGithubUsers;
+    List<JavaGithubNai> savedGithubUsers;
     private static final String GITHUB_USERS = "java_github_users";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
     @Override
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
-        state.putParcelableArrayList(GITHUB_USERS, savedGithubUsers);
+        state.putParcelableArrayList(GITHUB_USERS, (ArrayList<JavaGithubNai>) this.savedGithubUsers);
         mListState = layoutManager.onSaveInstanceState();
         state.putParcelable(LIST_STATE, mListState);
     }
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
     }
 
     public void loadGithubUsers() {
-        if (new NetworkConnection(MainActivity.this).isConnected()) {
+        if (new NetworkConnection(this).isConnected()) {
             presenter.getAllJavaUser();
         } else {
             Snackbar.make(findViewById(R.id.main_activity), R.string.no_internet,

@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class NetworkConnection {
-    private Context context;
+    final Context context;
     public NetworkConnection(Context context){
         this.context = context;
     }
@@ -16,14 +16,9 @@ public class NetworkConnection {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if(networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-            android.net.NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            android.net.NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-            if((wifi != null && wifi.isConnectedOrConnecting()) || (mobile != null && mobile.isConnectedOrConnecting())) {
-                return true;
-            } else {
-                return false;
-            }
+            NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            return wifi != null && wifi.isConnectedOrConnecting() || mobile != null && mobile.isConnectedOrConnecting();
         } else {
             return false;
         }
