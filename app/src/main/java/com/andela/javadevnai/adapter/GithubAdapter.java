@@ -39,8 +39,9 @@ public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         JavaGithubNai javaDev = devList.get(position);
 
-        String imageUrl = javaDev.getAvatarUrl();
+        final String imageUrl = javaDev.getAvatarUrl();
         final String username = javaDev.getUsername();
+        final String javaGithubURL = javaDev.getHtmlUrl();
 
         Picasso.get().load(imageUrl).into(holder.avatar);
 
@@ -49,6 +50,8 @@ public class GithubAdapter extends RecyclerView.Adapter<MyViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, DevDetails.class);
                 intent.putExtra("username", username);
+                intent.putExtra("avater_url", imageUrl);
+                intent.putExtra("html_url", javaGithubURL);
                 context.startActivity(intent);
             }
         });

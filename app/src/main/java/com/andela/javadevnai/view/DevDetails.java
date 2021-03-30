@@ -31,7 +31,8 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
     TextView organisation;
 
     String githubUsername;
-    String JavaGithubURL;
+    String javaGithubURL;
+    String imageUrl;
 
     GithubPresenter presenter;
 
@@ -62,6 +63,9 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
 
         presenter = new GithubPresenter(this);
         githubUsername = getIntent().getExtras().getString("username");
+        imageUrl = getIntent().getExtras().getString("avater_url");
+        javaGithubURL = getIntent().getExtras().getString("html_url");
+
         presenter.getJavaUser(githubUsername);
 
         progressBar = (ProgressBar) findViewById(R.id.loadingdata_progress);
@@ -83,7 +87,7 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
         if (item.getItemId() == R.id.share) {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBodyText = String.format("Check out this awesome developer @%s, %s.", githubUsername, JavaGithubURL);
+            String shareBodyText = String.format("Check out this awesome developer @%s, %s.", githubUsername, javaGithubURL);
             String shareSubject = "Java Github Developer Nairobi";
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
@@ -97,32 +101,39 @@ public class DevDetails extends AppCompatActivity implements JavaGithubUserView 
     public void displayJavaUser(JavaGithubNai javaGithubNaiUser) {
         mGithubUser = javaGithubNaiUser;
 
-        Picasso.get().load(javaGithubNaiUser.getAvatarUrl()).into(avatar);
-        username.setText(javaGithubNaiUser.getUsername());
+        username.setText(githubUsername);
+        Picasso.get().load(imageUrl).into(avatar);
+        githubUrl.setText(javaGithubURL);
+
+        if(javaGithubNaiUser != null) {
+            fullname.setText(javaGithubNaiUser.getName());
+
+            followers.setText(javaGithubNaiUser.getFollowers() + "");
+            followings.setText(javaGithubNaiUser.getFollowing() + "");
+            repo.setText(javaGithubNaiUser.getRepo() + "");
 
 
-        fullname.setText(javaGithubNaiUser.getName());
+            String info = javaGithubNaiUser.getBio();
+            String company = javaGithubNaiUser.getCompany();
 
-        followers.setText(javaGithubNaiUser.getFollowers()+"");
-        followings.setText(javaGithubNaiUser.getFollowing()+"");
-        repo.setText(javaGithubNaiUser.getRepo()+"");
+            if (company != null) {
+                organisation.setText("\u2605 " + company);
+            } else {
+                organisation.setText(R.string.not_available);
+            }
 
-        JavaGithubURL = javaGithubNaiUser.getHtmlUrl();
-        githubUrl.setText(JavaGithubURL);
-
-        String info = javaGithubNaiUser.getBio();
-        String company = javaGithubNaiUser.getCompany();
-
-        if (company != null) {
-            organisation.setText("\u2605 " + company);
+            if (company != null) {
+                bio.setText(info);
+            } else {
+                bio.setText(R.string.not_available);
+            }
         } else {
-            organisation.setText("N/A");
-        }
-
-        if (company != null) {
-            bio.setText(info);
-        } else {
-            bio.setText("N/A");
+            fullname.setText(R.string.not_available);
+            followers.setText(R.string.not_available);
+            followings.setText(R.string.not_available);
+            repo.setText(R.string.not_available);
+            organisation.setText(R.string.not_available);
+            bio.setText(R.string.not_available);
         }
 
         loader.setVisibility(View.GONE);

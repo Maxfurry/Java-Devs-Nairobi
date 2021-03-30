@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.andela.javadevnai.R;
 import com.andela.javadevnai.adapter.GithubAdapter;
 import com.andela.javadevnai.model.JavaGithubNai;
 import com.andela.javadevnai.presenter.GithubPresenter;
+import com.andela.javadevnai.util.NetworkConnection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
 
     RecyclerView.LayoutManager layoutManager;
 
-    ArrayList<JavaGithubNai> savedGithubUsers;
+    List<JavaGithubNai> savedGithubUsers;
     private static final String GITHUB_USERS = "java_github_users";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
         }
 
         if(savedInstanceState == null) {
-            presenter.getAllJavaUser();
+            this.loadGithubUsers();
         }
 
         progressBar = (ProgressBar) findViewById(R.id.loadingdata_progress);
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getAllJavaUser();
+                loadGithubUsers();
             }
         });
     }
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.refresh_page) {
             swipeRefreshLayout.setRefreshing(true);
-            presenter.getAllJavaUser();
+            this.loadGithubUsers();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
     @Override
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
-        state.putParcelableArrayList(GITHUB_USERS, savedGithubUsers);
+        state.putParcelableArrayList(GITHUB_USERS, (ArrayList<JavaGithubNai>) this.savedGithubUsers);
         mListState = layoutManager.onSaveInstanceState();
         state.putParcelable(LIST_STATE, mListState);
     }
@@ -170,6 +172,24 @@ public class MainActivity extends AppCompatActivity implements JavaGithubAllUser
         if (mListState != null) {
             layoutManager.onRestoreInstanceState(mListState);
             mListState = null;
+        }
+    }
+
+    private class NoInternetSnackBarListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            loadGithubUsers();
+        }
+    }
+
+    public void loadGithubUsers() {
+        if (new NetworkConnection(this).isConnected()) {
+            presenter.getAllJavaUser();
+        } else {
+            Snackbar.make(findViewById(R.id.main_activity), R.string.no_internet,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.retry, new NoInternetSnackBarListener())
+                    .show();
         }
     }
 }
